@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bo3vxaqdhp3w8"]
+[gd_scene load_steps=3 format=3 uid="uid://bo3vxaqdhp3w8"]
 
 [ext_resource type="Script" path="res://coxeter_edge.gd" id="1_3wr3u"]
+[ext_resource type="FontFile" uid="uid://cs2iy2yg0fm3r" path="res://white_rabbit.ttf" id="2_v3u6s"]
 
 [node name="CoxeterEdge" type="Node2D"]
 script = ExtResource("1_3wr3u")
@@ -8,3 +9,15 @@ script = ExtResource("1_3wr3u")
 [node name="Line" type="Line2D" parent="."]
 z_index = -1
 width = 9.0
+
+[node name="LabelOrigin" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="LabelOrigin"]
+offset_left = -60.0
+offset_top = -18.0
+offset_right = 60.0
+offset_bottom = 19.0
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_v3u6s")
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
