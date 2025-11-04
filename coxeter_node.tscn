@@ -7,7 +7,7 @@
 friction = 0.43
 bounce = 0.61
 
-[node name="CoxeterNode" type="RigidBody2D"]
+[node name="CoxeterNode" type="RigidBody2D" groups=["coxeter nodes"]]
 physics_material_override = SubResource("PhysicsMaterial_eqd0f")
 script = ExtResource("1_b53yc")
 
