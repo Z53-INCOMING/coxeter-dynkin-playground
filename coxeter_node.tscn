@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://rox80rr4fb5o"]
+
+[ext_resource type="Script" path="res://coxeter_node.gd" id="1_b53yc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gkhk4"]
+radius = 36.0
+
+[node name="CoxeterNode" type="RigidBody2D"]
+script = ExtResource("1_b53yc")
+
+[node name="Circle" type="Polygon2D" parent="."]
+antialiased = true
+
+[node name="Ring" type="Line2D" parent="."]
+closed = true
+width = 9.0
+joint_mode = 2
+antialiased = true
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gkhk4")
