@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bo3vxaqdhp3w8"]
 
-[ext_resource type="Script" path="res://coxeter_edge.gd" id="1_3wr3u"]
+[ext_resource type="Script" uid="uid://yfqbta3ex8k3" path="res://coxeter_edge.gd" id="1_3wr3u"]
 [ext_resource type="FontFile" uid="uid://cs2iy2yg0fm3r" path="res://white_rabbit.ttf" id="2_v3u6s"]
 
 [node name="CoxeterEdge" type="Node2D"]
@@ -13,6 +13,7 @@ width = 9.0
 [node name="LabelOrigin" type="Node2D" parent="."]
 
 [node name="Label" type="Label" parent="LabelOrigin"]
+z_index = 1
 offset_left = -60.0
 offset_top = -18.0
 offset_right = 60.0

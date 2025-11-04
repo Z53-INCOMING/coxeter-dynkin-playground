@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="Coxeter Dynkin Diagram Drawer"
+config/name="Coxeter Dynkin Playground"
 run/main_scene="res://coxeter_diagram_generator.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
@@ -37,4 +37,5 @@ common/enable_object_picking=false
 
 [rendering]
 
+textures/vram_compression/import_etc2_astc=true
 anti_aliasing/quality/msaa_2d=3
