@@ -22,9 +22,10 @@ func apply_spring(delta: float):
 	var ab_distance := ab_vector.length()
 	
 	var spring_value := ab_distance - 120.0 # 120.0 is the desired distance
+	var spring_strength := 1296.0 if Input.is_key_pressed(KEY_SPACE) else 36.0
 	
-	node_a.apply_central_impulse(ab_vector.normalized() * spring_value * 0.5 * delta * 36.0)
-	node_b.apply_central_impulse(-ab_vector.normalized() * spring_value * 0.5 * delta * 36.0)
+	node_a.apply_central_impulse(ab_vector.normalized() * spring_value * 0.5 * delta * spring_strength)
+	node_b.apply_central_impulse(-ab_vector.normalized() * spring_value * 0.5 * delta * spring_strength)
 
 # not my code :(
 func line_sdf(input_point: Vector2, point_a: Vector2, point_b: Vector2) -> float:

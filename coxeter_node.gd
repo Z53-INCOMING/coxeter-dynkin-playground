@@ -32,6 +32,9 @@ func _ready():
 	ringed = false
 
 func _physics_process(delta):
+	if Input.is_key_pressed(KEY_SPACE):
+		linear_velocity = Vector2.ZERO
+	
 	if Input.is_key_pressed(KEY_BACKSPACE):
 		if get_global_mouse_position().distance_squared_to(position) < 24.0 * 24.0:
 			queue_free()
