@@ -24,7 +24,7 @@ func spawn_node(connect_to: CoxeterNode):
 	var coxeter_node: CoxeterNode = coxeter_node_scene.instantiate()
 	
 	coxeter_node.position = get_global_mouse_position()
-	coxeter_node.linear_velocity = random_point_in_circle(18.0)
+	coxeter_node.linear_velocity = random_point_in_circle(12.0)
 	last_spawn_position = get_global_mouse_position()
 	
 	add_child(coxeter_node)
