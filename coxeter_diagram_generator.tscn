@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://coo3kagupf7ky"]
+[gd_scene load_steps=6 format=3 uid="uid://coo3kagupf7ky"]
 
 [ext_resource type="Script" path="res://coxeter_diagram_generator.gd" id="1_4r7to"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8a2cq"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8ra7m"]
+normal = Vector2(-1, 0)
+distance = -2560.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xjdfu"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qpl6f"]
+distance = -1440.0
 
 [node name="CoxeterDiagramGenerator" type="Node2D"]
 script = ExtResource("1_4r7to")
@@ -9,3 +22,17 @@ script = ExtResource("1_4r7to")
 offset_right = 2560.0
 offset_bottom = 1440.0
 color = Color(0, 0, 0, 1)
+
+[node name="Bounds" type="StaticBody2D" parent="."]
+
+[node name="LeftWall" type="CollisionShape2D" parent="Bounds"]
+shape = SubResource("WorldBoundaryShape2D_8a2cq")
+
+[node name="RightWall" type="CollisionShape2D" parent="Bounds"]
+shape = SubResource("WorldBoundaryShape2D_8ra7m")
+
+[node name="Ceiling" type="CollisionShape2D" parent="Bounds"]
+shape = SubResource("WorldBoundaryShape2D_xjdfu")
+
+[node name="Floor" type="CollisionShape2D" parent="Bounds"]
+shape = SubResource("WorldBoundaryShape2D_qpl6f")
