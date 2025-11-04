@@ -19,6 +19,7 @@ distance = -1440.0
 script = ExtResource("1_4r7to")
 
 [node name="Background" type="ColorRect" parent="."]
+z_index = -2
 offset_right = 2560.0
 offset_bottom = 1440.0
 color = Color(0, 0, 0, 1)
