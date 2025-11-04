@@ -1,21 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://rox80rr4fb5o"]
+[gd_scene load_steps=4 format=3 uid="uid://rox80rr4fb5o"]
 
 [ext_resource type="Script" path="res://coxeter_node.gd" id="1_b53yc"]
+[ext_resource type="Shape2D" uid="uid://d4fq36l7h5vvn" path="res://ringed_node.tres" id="2_t1j6t"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gkhk4"]
-radius = 36.0
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_eqd0f"]
+friction = 0.43
+bounce = 0.61
 
 [node name="CoxeterNode" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_eqd0f")
 script = ExtResource("1_b53yc")
 
 [node name="Circle" type="Polygon2D" parent="."]
 antialiased = true
 
 [node name="Ring" type="Line2D" parent="."]
+visible = false
 closed = true
 width = 9.0
 joint_mode = 2
 antialiased = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_gkhk4")
+shape = ExtResource("2_t1j6t")
