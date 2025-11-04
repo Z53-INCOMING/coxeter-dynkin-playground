@@ -9,7 +9,7 @@ class_name CoxeterNode extends RigidBody2D
 
 var grabbed := false
 var grabbed_by := Vector2.ZERO
-var original_mouse_pos := Vector2.ZERO
+var when_grabbed := 0.0
 
 var ringed: bool = false :
 	set(value):
@@ -44,10 +44,10 @@ func _input(event):
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 			grabbed = false
 			
-			if close and original_mouse_pos.distance_to(get_global_mouse_position()) < 16.0:
+			if close and (Time.get_ticks_msec() / 1000.0) - when_grabbed < 0.4:
 				ringed = !ringed
 		
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and close:
 			grabbed = true
 			grabbed_by = get_global_mouse_position() - position
-			original_mouse_pos = grabbed_by + position
+			when_grabbed = Time.get_ticks_msec() / 1000.0
