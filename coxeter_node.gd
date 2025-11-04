@@ -7,6 +7,10 @@ class_name CoxeterNode extends RigidBody2D
 @onready var ringed_node_shape := preload("res://ringed_node.tres")
 @onready var unringed_node_shape := preload("res://unringed_node.tres")
 
+var grabbed := false
+var grabbed_by := Vector2.ZERO
+var original_mouse_pos := Vector2.ZERO
+
 var ringed: bool = false :
 	set(value):
 		ringed = value
@@ -25,4 +29,25 @@ func _ready():
 		points[i] *= 1.56
 	ring.points = points
 	
-	ringed = randi() % 2 == 0
+	ringed = false
+
+func _physics_process(delta):
+	if grabbed:
+		var motion_vector := get_global_mouse_position() - position - grabbed_by
+		
+		apply_central_impulse((motion_vector - (linear_velocity * 0.25)) * delta * 36.0)
+
+func _input(event):
+	var close := get_global_mouse_position().distance_squared_to(position) < 24.0 * 24.0
+	
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
+			grabbed = false
+			
+			if close and original_mouse_pos.distance_to(get_global_mouse_position()) < 16.0:
+				ringed = !ringed
+		
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and close:
+			grabbed = true
+			grabbed_by = get_global_mouse_position() - position
+			original_mouse_pos = grabbed_by + position

@@ -14,7 +14,7 @@ func _physics_process(delta):
 		
 		var spring_value := ab_distance - 120.0 # 120.0 is the desired distance
 		
-		node_a.apply_central_impulse(ab_vector.normalized() * spring_value * 0.5)
-		node_b.apply_central_impulse(-ab_vector.normalized() * spring_value * 0.5)
+		node_a.apply_central_impulse(ab_vector.normalized() * spring_value * 0.5 * delta * 36.0)
+		node_b.apply_central_impulse(-ab_vector.normalized() * spring_value * 0.5 * delta * 36.0)
 	else:
 		line.points = []
