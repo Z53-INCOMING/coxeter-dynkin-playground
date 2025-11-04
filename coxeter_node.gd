@@ -32,10 +32,14 @@ func _ready():
 	ringed = false
 
 func _physics_process(delta):
+	if Input.is_key_pressed(KEY_BACKSPACE):
+		if get_global_mouse_position().distance_squared_to(position) < 24.0 * 24.0:
+			queue_free()
+	
 	if grabbed:
 		var motion_vector := get_global_mouse_position() - position - grabbed_by
 		
-		apply_central_impulse((motion_vector - (linear_velocity * 0.25)) * delta * 36.0)
+		apply_central_impulse((motion_vector - (linear_velocity * 0.125)) * delta * 144.0)
 
 func _input(event):
 	var close := get_global_mouse_position().distance_squared_to(position) < 24.0 * 24.0
@@ -44,7 +48,7 @@ func _input(event):
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 			grabbed = false
 			
-			if close and (Time.get_ticks_msec() / 1000.0) - when_grabbed < 0.4:
+			if close and (Time.get_ticks_msec() / 1000.0) - when_grabbed < 0.2:
 				ringed = !ringed
 		
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and close:
