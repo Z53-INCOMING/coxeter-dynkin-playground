@@ -11,6 +11,8 @@ var weight := 0
 
 var possible_weights := PackedStringArray(["", "4", "5", "6", "7", "8", "5/2"])
 
+var start_pressed := 0.0
+
 func _physics_process(delta):
 	if is_instance_valid(node_a) && is_instance_valid(node_b):
 		line.points = [node_a.position, node_b.position]
@@ -48,6 +50,9 @@ func get_edge_position() -> Vector2:
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.pressed and get_global_mouse_position().distance_squared_to(get_edge_position()) < 18.0 * 18.0:
-			if event.button_index == MOUSE_BUTTON_LEFT:
-				weight = (weight + 1) % possible_weights.size()
-			label.text = possible_weights[weight]
+			start_pressed = Time.get_ticks_msec() / 1000.0
+		if event.is_released() and get_global_mouse_position().distance_squared_to(get_edge_position()) < 18.0 * 18.0:
+			if (Time.get_ticks_msec() / 1000.0) - start_pressed < 0.3:
+				if event.button_index == MOUSE_BUTTON_LEFT:
+					weight = (weight + 1) % possible_weights.size()
+				label.text = possible_weights[weight]
