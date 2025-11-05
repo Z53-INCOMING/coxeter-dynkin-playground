@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://coo3kagupf7ky"]
+[gd_scene load_steps=7 format=3 uid="uid://coo3kagupf7ky"]
 
 [ext_resource type="Script" uid="uid://cwv6ic5u2p3fl" path="res://coxeter_diagram_generator.gd" id="1_4r7to"]
+[ext_resource type="FontFile" uid="uid://cs2iy2yg0fm3r" path="res://white_rabbit.ttf" id="2_76a6j"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8a2cq"]
 normal = Vector2(1, 0)
@@ -37,3 +38,40 @@ shape = SubResource("WorldBoundaryShape2D_xjdfu")
 
 [node name="Floor" type="CollisionShape2D" parent="Bounds"]
 shape = SubResource("WorldBoundaryShape2D_qpl6f")
+
+[node name="ProgressBar" type="Node2D" parent="."]
+visible = false
+z_index = 2
+
+[node name="ProgressBarBackground" type="ColorRect" parent="ProgressBar"]
+offset_left = 1045.0
+offset_top = 674.0
+offset_right = 1515.0
+offset_bottom = 766.0
+color = Color(0.15377831, 0.15377831, 0.15377831, 1)
+
+[node name="Empty" type="ColorRect" parent="ProgressBar"]
+offset_left = 1055.0
+offset_top = 684.0
+offset_right = 1505.0
+offset_bottom = 756.0
+color = Color(0.099469066, 0.099469066, 0.099469066, 1)
+
+[node name="Fill" type="ColorRect" parent="ProgressBar"]
+offset_left = 1055.0
+offset_top = 684.0
+offset_right = 1337.0
+offset_bottom = 756.0
+color = Color(1, 0, 0, 1)
+
+[node name="Label" type="Label" parent="ProgressBar"]
+offset_left = 1045.0
+offset_top = 674.0
+offset_right = 1515.0
+offset_bottom = 766.0
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_76a6j")
+theme_override_font_sizes/font_size = 32
+text = "Deleting All Diagrams"
+horizontal_alignment = 1
+vertical_alignment = 1

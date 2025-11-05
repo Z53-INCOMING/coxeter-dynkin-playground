@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://rox80rr4fb5o"]
 
-[ext_resource type="Script" path="res://coxeter_node.gd" id="1_b53yc"]
+[ext_resource type="Script" uid="uid://eyyhft5a0xa4" path="res://coxeter_node.gd" id="1_b53yc"]
 [ext_resource type="Shape2D" uid="uid://d4fq36l7h5vvn" path="res://ringed_node.tres" id="2_t1j6t"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_eqd0f"]
 friction = 0.43
 bounce = 0.61
 
-[node name="CoxeterNode" type="RigidBody2D" groups=["coxeter nodes"]]
+[node name="CoxeterNode" type="RigidBody2D" groups=["coxeter", "coxeter nodes"]]
 physics_material_override = SubResource("PhysicsMaterial_eqd0f")
 script = ExtResource("1_b53yc")
 

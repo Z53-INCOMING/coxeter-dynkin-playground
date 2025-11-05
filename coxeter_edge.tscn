@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://yfqbta3ex8k3" path="res://coxeter_edge.gd" id="1_3wr3u"]
 [ext_resource type="FontFile" uid="uid://cs2iy2yg0fm3r" path="res://white_rabbit.ttf" id="2_v3u6s"]
 
-[node name="CoxeterEdge" type="Node2D" groups=["coxeter edges"]]
+[node name="CoxeterEdge" type="Node2D" groups=["coxeter", "coxeter edges"]]
 script = ExtResource("1_3wr3u")
 
 [node name="Line" type="Line2D" parent="."]

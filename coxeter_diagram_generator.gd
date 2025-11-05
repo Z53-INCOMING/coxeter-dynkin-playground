@@ -10,7 +10,11 @@ var second_to_last_node: CoxeterNode = null
 @onready var coxeter_node_scene := preload("res://coxeter_node.tscn")
 @onready var coxeter_edge_scene := preload("res://coxeter_edge.tscn")
 
+@onready var progress_bar := $ProgressBar
+
 var has_gravity := false
+
+var delete_timer := 0.0
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -31,9 +35,23 @@ func _input(event):
 				PhysicsServer2D.area_set_param(physics_space, PhysicsServer2D.AREA_PARAM_GRAVITY, 0.0)
 				PhysicsServer2D.area_set_param(physics_space, PhysicsServer2D.AREA_PARAM_GRAVITY_VECTOR, Vector2.ZERO)
 
-func _process(_delta):
+func _process(delta):
 	if drawing:
 		spawn_node()
+	
+	if Input.is_key_pressed(KEY_DELETE):
+		delete_timer += delta
+		
+		if delete_timer >= 1.0:
+			delete_timer = 1.0
+			for coxeter_component in get_tree().get_nodes_in_group("coxeter"):
+				coxeter_component.queue_free()
+		
+		$ProgressBar/Fill.size.x = 450.0 * delete_timer
+		progress_bar.visible = true
+	else:
+		delete_timer = 0.0
+		progress_bar.visible = false
 
 func spawn_node():
 	var closest_distance := INF
