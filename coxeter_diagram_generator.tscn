@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://coo3kagupf7ky"]
 
-[ext_resource type="Script" path="res://coxeter_diagram_generator.gd" id="1_4r7to"]
+[ext_resource type="Script" uid="uid://cwv6ic5u2p3fl" path="res://coxeter_diagram_generator.gd" id="1_4r7to"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8a2cq"]
 normal = Vector2(1, 0)

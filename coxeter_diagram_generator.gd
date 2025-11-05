@@ -17,11 +17,11 @@ func _input(event):
 			last_node = null
 			second_to_last_node = null
 
-func _process(delta):
+func _process(_delta):
 	if drawing:
-		spawn_node(last_node)
+		spawn_node()
 
-func spawn_node(connect_to: CoxeterNode):
+func spawn_node():
 	var closest_distance := INF
 	for node in get_tree().get_nodes_in_group("coxeter nodes"):
 		var distance := get_global_mouse_position().distance_squared_to(node.position)
@@ -29,14 +29,21 @@ func spawn_node(connect_to: CoxeterNode):
 			closest_distance = distance
 		
 		if get_global_mouse_position().distance_squared_to(node.position) < 41.94 * 41.94 and node != last_node and node != second_to_last_node: # connect to old node
-			var coxeter_edge: CoxeterEdge = coxeter_edge_scene.instantiate()
+			var edge_already_exists := false
+			for edge in get_tree().get_nodes_in_group("coxeter edges"):
+				if (edge.node_a == last_node and edge.node_b == node) or (edge.node_a == node and edge.node_b == last_node):
+					edge_already_exists = true
+					break
 			
-			coxeter_edge.node_a = last_node
-			coxeter_edge.node_b = node
-			
-			add_child(coxeter_edge)
-			second_to_last_node = last_node
-			last_node = node
+			if !edge_already_exists:
+				var coxeter_edge: CoxeterEdge = coxeter_edge_scene.instantiate()
+				
+				coxeter_edge.node_a = last_node
+				coxeter_edge.node_b = node
+				
+				add_child(coxeter_edge)
+				second_to_last_node = last_node
+				last_node = node
 			return
 	
 	if last_spawn_position.distance_squared_to(get_global_mouse_position()) > 120.0 * 120.0 and closest_distance > 72.0 * 72.0:

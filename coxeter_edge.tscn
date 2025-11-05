@@ -3,12 +3,13 @@
 [ext_resource type="Script" uid="uid://yfqbta3ex8k3" path="res://coxeter_edge.gd" id="1_3wr3u"]
 [ext_resource type="FontFile" uid="uid://cs2iy2yg0fm3r" path="res://white_rabbit.ttf" id="2_v3u6s"]
 
-[node name="CoxeterEdge" type="Node2D"]
+[node name="CoxeterEdge" type="Node2D" groups=["coxeter edges"]]
 script = ExtResource("1_3wr3u")
 
 [node name="Line" type="Line2D" parent="."]
 z_index = -1
 width = 9.0
+default_color = Color(1, 1, 1, 0.25882354)
 
 [node name="LabelOrigin" type="Node2D" parent="."]
 
