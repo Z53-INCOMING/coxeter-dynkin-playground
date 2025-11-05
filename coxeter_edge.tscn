@@ -9,7 +9,6 @@ script = ExtResource("1_3wr3u")
 [node name="Line" type="Line2D" parent="."]
 z_index = -1
 width = 9.0
-default_color = Color(1, 1, 1, 0.25882354)
 
 [node name="LabelOrigin" type="Node2D" parent="."]
 
