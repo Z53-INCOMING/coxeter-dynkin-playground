@@ -14,6 +14,12 @@ script = ExtResource("1_b53yc")
 [node name="Circle" type="Polygon2D" parent="."]
 antialiased = true
 
+[node name="Hollow" type="Polygon2D" parent="."]
+visible = false
+scale = Vector2(0.625, 0.625)
+color = Color(0, 0, 0, 1)
+antialiased = true
+
 [node name="Ring" type="Line2D" parent="."]
 visible = false
 closed = true

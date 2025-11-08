@@ -3,6 +3,7 @@ class_name CoxeterNode extends RigidBody2D
 @onready var circle := $Circle
 @onready var ring := $Ring
 @onready var hitbox := $Hitbox
+@onready var visual_hollow := $Hollow
 
 @onready var ringed_node_shape := preload("res://ringed_node.tres")
 @onready var unringed_node_shape := preload("res://unringed_node.tres")
@@ -11,11 +12,18 @@ var grabbed := false
 var grabbed_by := Vector2.ZERO
 var when_grabbed := 0.0
 
+var just_hollowed := false
+
 var ringed: bool = false :
 	set(value):
 		ringed = value
 		ring.visible = value
 		hitbox.shape = ringed_node_shape if ringed else unringed_node_shape
+
+var hollowed: bool = false :
+	set(value):
+		hollowed = value
+		visual_hollow.visible = value
 
 func _ready():
 	var angle := 0.0
@@ -24,6 +32,7 @@ func _ready():
 		points.append(Vector2.from_angle(angle) * 24.0)
 		angle += TAU / 64.0
 	circle.polygon = points
+	visual_hollow.polygon = points
 	
 	for i in 63:
 		points[i] *= 1.56
@@ -46,6 +55,13 @@ func _physics_process(delta):
 
 func _input(event):
 	var close := get_global_mouse_position().distance_squared_to(position) < 24.0 * 24.0
+	
+	if Input.is_action_pressed("snub") and close and !just_hollowed:
+		hollowed = !hollowed
+		just_hollowed = true
+	
+	if !close:
+		just_hollowed = false
 	
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
