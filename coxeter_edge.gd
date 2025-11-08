@@ -9,6 +9,8 @@ var node_b: CoxeterNode = null
 
 var weight := 0
 
+var just_ghosted := false
+
 var possible_weights := PackedStringArray(["", "4", "5", "6", "7", "8", "5/2"])
 
 var start_pressed := 0.0
@@ -23,6 +25,16 @@ func _physics_process(delta):
 		if Input.is_key_pressed(KEY_BACKSPACE):
 			if line_sdf(get_global_mouse_position(), node_a.position, node_b.position) < 9.0:
 				queue_free()
+		
+		if Input.is_action_pressed("ghost edge"):
+			if line_sdf(get_global_mouse_position(), node_a.position, node_b.position) < 9.0:
+				if !just_ghosted:
+					just_ghosted = true
+					visible = !visible
+			else:
+				just_ghosted = false
+		else:
+			just_ghosted = false
 	else:
 		queue_free()
 
@@ -48,11 +60,12 @@ func get_edge_position() -> Vector2:
 	return (node_a.position + node_b.position) / 2.0
 
 func _input(event):
-	if event is InputEventMouseButton:
-		if event.pressed and get_global_mouse_position().distance_squared_to(get_edge_position()) < 18.0 * 18.0:
-			start_pressed = Time.get_ticks_msec() / 1000.0
-		if event.is_released() and get_global_mouse_position().distance_squared_to(get_edge_position()) < 18.0 * 18.0:
-			if (Time.get_ticks_msec() / 1000.0) - start_pressed < 0.3:
-				if event.button_index == MOUSE_BUTTON_LEFT:
-					weight = (weight + 1) % possible_weights.size()
-				label.text = possible_weights[weight]
+	if visible:
+		if event is InputEventMouseButton:
+			if event.pressed and get_global_mouse_position().distance_squared_to(get_edge_position()) < 18.0 * 18.0:
+				start_pressed = Time.get_ticks_msec() / 1000.0
+			if event.is_released() and get_global_mouse_position().distance_squared_to(get_edge_position()) < 18.0 * 18.0:
+				if (Time.get_ticks_msec() / 1000.0) - start_pressed < 0.3:
+					if event.button_index == MOUSE_BUTTON_LEFT:
+						weight = (weight + 1) % possible_weights.size()
+					label.text = possible_weights[weight]
