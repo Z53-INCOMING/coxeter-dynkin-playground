@@ -7,13 +7,13 @@ var node_b: CoxeterNode = null
 @onready var label := $LabelOrigin/Label
 @onready var label_origin := $LabelOrigin
 
-var weight := 0
-
 var just_ghosted := false
 
-var possible_weights := PackedStringArray(["", "4", "5", "6", "7", "8", "5/2"])
+var weight := Vector2i(3, 1)
 
 var start_pressed := 0.0
+
+var length := 120.0
 
 func _physics_process(delta):
 	if is_instance_valid(node_a) && is_instance_valid(node_b):
@@ -35,6 +35,23 @@ func _physics_process(delta):
 				just_ghosted = false
 		else:
 			just_ghosted = false
+		
+		if Input.is_action_just_pressed("numerator up"):
+			if line_sdf(get_global_mouse_position(), node_a.position, node_b.position) < 9.0:
+				weight.x += 1
+				update_weight_label()
+		if Input.is_action_just_pressed("numerator down"):
+			if line_sdf(get_global_mouse_position(), node_a.position, node_b.position) < 9.0:
+				weight.x = maxi(weight.x - 1, 3)
+				update_weight_label()
+		if Input.is_action_just_pressed("denominator up"):
+			if line_sdf(get_global_mouse_position(), node_a.position, node_b.position) < 9.0:
+				weight.y += 1
+				update_weight_label()
+		if Input.is_action_just_pressed("denominator down"):
+			if line_sdf(get_global_mouse_position(), node_a.position, node_b.position) < 9.0:
+				weight.y = maxi(weight.y - 1, 1)
+				update_weight_label()
 	else:
 		queue_free()
 
@@ -42,7 +59,7 @@ func apply_spring(delta: float):
 	var ab_vector := node_b.position - node_a.position
 	var ab_distance := ab_vector.length()
 	
-	var spring_value := ab_distance - 120.0 # 120.0 is the desired distance
+	var spring_value := ab_distance - length
 	var spring_strength := 1296.0 if Input.is_key_pressed(KEY_SPACE) else 36.0
 	
 	node_a.apply_central_impulse(ab_vector.normalized() * spring_value * 0.5 * delta * spring_strength)
@@ -59,13 +76,10 @@ func line_sdf(input_point: Vector2, point_a: Vector2, point_b: Vector2) -> float
 func get_edge_position() -> Vector2:
 	return (node_a.position + node_b.position) / 2.0
 
-func _input(event):
-	if visible:
-		if event is InputEventMouseButton:
-			if event.pressed and get_global_mouse_position().distance_squared_to(get_edge_position()) < 18.0 * 18.0:
-				start_pressed = Time.get_ticks_msec() / 1000.0
-			if event.is_released() and get_global_mouse_position().distance_squared_to(get_edge_position()) < 18.0 * 18.0:
-				if (Time.get_ticks_msec() / 1000.0) - start_pressed < 0.3:
-					if event.button_index == MOUSE_BUTTON_LEFT:
-						weight = (weight + 1) % possible_weights.size()
-					label.text = possible_weights[weight]
+func update_weight_label():
+	if weight.y == 1:
+		label.text = "" if weight.x == 3 else str(weight.x)
+	else:
+		label.text = str(weight.x) + "/" + str(weight.y)
+	
+	length = maxf(120.0, label.text.length() * 50.0)
