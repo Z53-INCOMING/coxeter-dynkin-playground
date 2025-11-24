@@ -3,7 +3,6 @@ class_name CoxeterNode extends RigidBody2D
 @onready var circle := $Circle
 @onready var ring := $Ring
 @onready var hitbox := $Hitbox
-@onready var visual_hollow := $Hollow
 
 @onready var ringed_node_shape := preload("res://ringed_node.tres")
 @onready var unringed_node_shape := preload("res://unringed_node.tres")
@@ -23,7 +22,10 @@ var ringed: bool = false :
 var hollowed: bool = false :
 	set(value):
 		hollowed = value
-		visual_hollow.visible = value
+		circle.color = Color.BLACK if value else Color.WHITE
+		circle.scale = Vector2.ONE * 1.4 if value else Vector2.ONE
+		ring.visible = hollowed if hollowed else ringed
+		hitbox.shape = ringed_node_shape if hollowed else unringed_node_shape
 
 func _ready():
 	var angle := 0.0
@@ -32,7 +34,6 @@ func _ready():
 		points.append(Vector2.from_angle(angle) * 24.0)
 		angle += TAU / 64.0
 	circle.polygon = points
-	visual_hollow.polygon = points
 	
 	for i in 63:
 		points[i] *= 1.56
@@ -60,7 +61,7 @@ func _input(event):
 		hollowed = !hollowed
 		just_hollowed = true
 	
-	if !close:
+	if !close or !Input.is_action_pressed("snub"):
 		just_hollowed = false
 	
 	if event is InputEventMouseButton:
